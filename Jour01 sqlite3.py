@@ -1,6 +1,7 @@
 import sqlite3
 
-liste = open('Elf_list').read()
+# liste = open(Puzzles/Elf_list_test).read()
+liste = open('Puzzles/Elf_list').read()
 liste = liste.splitlines(True)
 
 

@@ -1,5 +1,5 @@
-# liste = open('Assignment_test').read()
-liste = open('Assignment').read()
+# liste = open('Puzzles/Assignment_test').read()
+liste = open('Puzzles/Assignment').read()
 liste = liste.split()
 
 

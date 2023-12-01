@@ -1,5 +1,5 @@
-# liste = open('FilesSystem_test').read()
-liste = open('FilesSystem').read()
+# liste = open('Puzzles/FilesSystem_test').read()
+liste = open('Puzzles/FilesSystem').read()
 liste = liste.split("\n")
 print(liste)
 

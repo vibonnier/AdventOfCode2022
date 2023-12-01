@@ -1,5 +1,5 @@
-# liste = open('Cycle_test').read()
-liste = open('Cycle').read()
+# liste = open('Puzzles/Cycle_test').read()
+liste = open('Puzzles/Cycle').read()
 liste = liste.split()
 print(liste)
 

@@ -1,5 +1,5 @@
-# liste = open('').read()
-liste = open('').read()
+# liste = open('Puzzles/').read()
+liste = open('Puzzles/').read()
 liste = liste.split()
 print(liste)
 

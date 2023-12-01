@@ -1,5 +1,5 @@
-# liste = open('Signal_test').read()
-liste = open('Signal').read()
+# liste = open('Puzzles/Signal_test').read()
+liste = open('Puzzles/Signal').read()
 print(liste)
 
 

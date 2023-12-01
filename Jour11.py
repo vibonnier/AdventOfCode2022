@@ -1,8 +1,8 @@
 import math
 
 
-# liste = open('Monkeys_test').read()
-liste = open('Monkeys').read()
+# liste = open('Puzzles/Monkeys_test').read()
+liste = open('Puzzles/Monkeys').read()
 liste = liste.split("\n")
 print(liste)
 

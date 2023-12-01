@@ -1,5 +1,5 @@
-# liste = open('TreeHouse_test').read()
-liste = open('TreeHouse').read()
+# liste = open('Puzzles/TreeHouse_test').read()
+liste = open('Puzzles/TreeHouse').read()
 liste = liste.split("\n")
 print(liste)
 

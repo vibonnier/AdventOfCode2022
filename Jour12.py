@@ -3,8 +3,8 @@
 from queue import PriorityQueue
 
 
-# liste = open('Heightmap_test').read()
-liste = open('Heightmap').read()
+# liste = open('Puzzles/Heightmap_test').read()
+liste = open('Puzzles/Heightmap').read()
 liste = liste.split()
 
 

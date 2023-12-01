@@ -3,15 +3,14 @@
 # Une autre façon (celle que tout le monde utilise sur internet)
 # with open('Elf_list','r') as f :
 # Cette formulation demande une suite par ex dans une boucle, etc.
-# liste = open('Elf_list_test').read()
-liste = open('Elf_list').read()
+# liste = open('Puzzles/Elf_list_test').read()
+liste = open('Puzzles/Elf_list').read()
 
 
 # Créé un nouvel élément de la liste après chaque espace, mais du coup, les supprime tous sans distinction.
 # liste = liste.split()
 # Sinon fait comme "split" mais garde en mémoire les espaces.
 liste = liste.splitlines(True)
-print(liste)
 
 
 # "int" transforme en nombre et append ajout à une liste.
@@ -23,7 +22,6 @@ for i in range(len(liste)):
     else:
         futur_liste.append([])
 liste = futur_liste
-print(liste)
 
 
 # Sommer et Arrêter quand on tombe sur du vide.

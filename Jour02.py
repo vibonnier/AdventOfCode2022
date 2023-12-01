@@ -1,6 +1,6 @@
 # Rappel: A, X rock - B, Y paper - C, Z scissors.
-# liste = open('PSR_list_test').read()
-liste = open('PSR_list').read()
+# liste = open('Puzzles/PSR_list_test').read()
+liste = open('Puzzles/PSR_list').read()
 liste = liste.splitlines(False)
 print(liste)
 

@@ -1,10 +1,10 @@
-# listm = open('Mouvments_test').read()
-listm = open('Mouvments').read()
+# listm = open('Puzzles/Mouvments_test').read()
+listm = open('Puzzles/Mouvments').read()
 listm = listm.split("\n")
 
 # Transformer la cale du bateau.
-# listc = open('Crates_test').read()
-listc = open('Crates').read()
+# listc = open('Puzzles/Crates_test').read()
+listc = open('Puzzles/Crates').read()
 listc = listc.split("\n")
 
 

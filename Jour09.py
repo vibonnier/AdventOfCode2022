@@ -1,5 +1,5 @@
-# liste = open('Deplacements_test').read()
-liste = open('Deplacements_test').read()
+# liste = open('Puzzles/Deplacements_test').read()
+liste = open('Puzzles/Deplacements').read()
 liste = liste.split()
 print(liste)
 
@@ -11,59 +11,6 @@ class grille:
             self.abscisse = int(abscisse)
             self.ordonnee = int(ordonnee)
             self.etat = '.'
-
-        def suivre(self, other):
-            # mouvements de gauche - droite
-            if self.abscisse - other.abscisse == 2 and self.ordonnee == other.ordonnee:
-                self.abscisse = other.abscisse + 1
-            elif self.abscisse - other.abscisse == -2 and self.ordonnee == other.ordonnee:
-                self.abscisse = other.abscisse - 1
-            # mouvements de haut - bas
-            elif self.ordonnee - other.ordonnee == 2 and self.abscisse == other.abscisse:
-                self.ordonnee = other.ordonnee + 1
-            elif self.ordonnee - other.ordonnee == -2 and self.abscisse == other.abscisse:
-                self.ordonnee = other.ordonnee - 1
-            # mouvements diagonale via abscisse
-            elif self.abscisse - other.abscisse == -1 and self.ordonnee - other.ordonnee == -2:
-                self.ordonnee = other.ordonnee - 1
-                self.abscisse = other.abscisse
-            elif self.abscisse - other.abscisse == 1 and self.ordonnee - other.ordonnee == -2:
-                self.ordonnee = other.ordonnee - 1
-                self.abscisse = other.abscisse
-            elif self.abscisse - other.abscisse == 1 and self.ordonnee - other.ordonnee == 2:
-                self.ordonnee = other.ordonnee + 1
-                self.abscisse = other.abscisse
-            elif self.abscisse - other.abscisse == -1 and self.ordonnee - other.ordonnee == 2:
-                self.ordonnee = other.ordonnee + 1
-                self.abscisse = other.abscisse
-            # mouvements diagonale via ordonnée
-            elif self.abscisse - other.abscisse == -2 and self.ordonnee - other.ordonnee == 1:
-                self.ordonnee = other.ordonnee
-                self.abscisse = other.abscisse - 1
-            elif self.abscisse - other.abscisse == -2 and self.ordonnee - other.ordonnee == -1:
-                self.ordonnee = other.ordonnee
-                self.abscisse = other.abscisse - 1
-            elif self.abscisse - other.abscisse == 2 and self.ordonnee - other.ordonnee == -1:
-                self.ordonnee = other.ordonnee
-                self.abscisse = other.abscisse + 1
-            elif self.abscisse - other.abscisse == 2 and self.ordonnee - other.ordonnee == 1:
-                self.ordonnee = other.ordonnee
-                self.abscisse = other.abscisse + 1
-            else:
-                pass
-
-        def deplacer(self, mouvements):
-            if mouvements == 'R':
-                self.abscisse += 1
-            elif mouvements == 'L':
-                self.abscisse -= 1
-            elif mouvements == 'U':
-                self.ordonnee += 1
-            elif mouvements == 'D':
-                self.ordonnee -= 1
-
-        def changer_etat(self):
-            self.etat = '#'
 
 
 # Encoder la taille de la grille en longueur.
@@ -136,16 +83,67 @@ creation()
 ####################################################################################################################
 
 
+def deplacer_H(i):
+    if liste[i] == 'R':
+        H.abscisse += 1
+    elif liste[i] == 'L':
+        H.abscisse -= 1
+    elif liste[i] == 'U':
+        H.ordonnee += 1
+    elif liste[i] == 'D':
+        H.ordonnee -= 1
+
+
+def deplacer_T():
+    # mouvements de gauche - droite
+    if T.abscisse - H.abscisse == 2 and T.ordonnee == H.ordonnee:
+        T.abscisse = H.abscisse + 1
+    elif T.abscisse - H.abscisse == -2 and T.ordonnee == H.ordonnee:
+        T.abscisse = H.abscisse - 1
+    # mouvements de haut - bas
+    elif T.ordonnee - H.ordonnee == 2 and T.abscisse == H.abscisse:
+        T.ordonnee = H.ordonnee + 1
+    elif T.ordonnee - H.ordonnee == -2 and T.abscisse == H.abscisse:
+        T.ordonnee = H.ordonnee - 1
+    # mouvements diagonale via abscisse
+    elif T.abscisse - H.abscisse == -1 and T.ordonnee - H.ordonnee == -2:
+        T.ordonnee = H.ordonnee - 1
+        T.abscisse = H.abscisse
+    elif T.abscisse - H.abscisse == 1 and T.ordonnee - H.ordonnee == -2:
+        T.ordonnee = H.ordonnee - 1
+        T.abscisse = H.abscisse
+    elif T.abscisse - H.abscisse == 1 and T.ordonnee - H.ordonnee == 2:
+        T.ordonnee = H.ordonnee + 1
+        T.abscisse = H.abscisse
+    elif T.abscisse - H.abscisse == -1 and T.ordonnee - H.ordonnee == 2:
+        T.ordonnee = H.ordonnee + 1
+        T.abscisse = H.abscisse
+    # mouvements diagonale via ordonnée
+    elif T.abscisse - H.abscisse == -2 and T.ordonnee - H.ordonnee == 1:
+        T.ordonnee = H.ordonnee
+        T.abscisse = H.abscisse - 1
+    elif T.abscisse - H.abscisse == -2 and T.ordonnee - H.ordonnee == -1:
+        T.ordonnee = H.ordonnee
+        T.abscisse = H.abscisse - 1
+    elif T.abscisse - H.abscisse == 2 and T.ordonnee - H.ordonnee == -1:
+        T.ordonnee = H.ordonnee
+        T.abscisse = H.abscisse + 1
+    elif T.abscisse - H.abscisse == 2 and T.ordonnee - H.ordonnee == 1:
+        T.ordonnee = H.ordonnee
+        T.abscisse = H.abscisse + 1
+    else:
+        pass
+
+
 def deplacer_tout():
     globals()['H'] = grille(0, 0)
     globals()['T'] = grille(0, 0)
     position_0_0.etat = '#'
     for i in range(0, len(liste), 2):
         for j in range(1, int(liste[i + 1]) + 1):
-            H.deplacer(liste[i])
-            print('H position:', H.abscisse, H.ordonnee)
-            print('T position', T.abscisse, T.ordonnee)
-            position(T.abscisse, T.ordonnee).changer_etat
+            deplacer_H(i)
+            deplacer_T()
+            position(T.abscisse, T.ordonnee).etat = '#'
 
 
 # Compter les états #.
@@ -172,8 +170,8 @@ print('The tail of the rope visited', comptage(), 'positions.')
 ####################################################################################################################
 
 
-# liste = open('Deplacements2_test').read()
-liste = open('Deplacements2_test').read()
+# liste = open('Puzzles/Deplacements2_test').read()
+liste = open('Puzzles/Deplacements2').read()
 liste = liste.split()
 print(liste)
 creation()
