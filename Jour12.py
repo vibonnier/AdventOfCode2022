@@ -1,5 +1,5 @@
 # https://www.redblobgames.com/pathfinding/a-star/introduction.html
-
+import timeit
 from queue import PriorityQueue
 
 
@@ -88,7 +88,7 @@ def distance(position1, position2):
     return abs(position1.abscisse - position2.abscisse) + abs(position1.ordonnee - position2.ordonnee)
 
 
-def tous_les_chemins():
+def tous_les_chemins_A_star_algorithm():
     which_direction = PriorityQueue()
     which_direction.put((0, start))
     came_from = dict()
@@ -119,7 +119,7 @@ def chemin_plus_court():
     nb_step = 0
     position_current = end.nom
     came_from = dict()
-    came_from = tous_les_chemins()
+    came_from = tous_les_chemins_A_star_algorithm()
     while position_current != start.nom:
         position_current = came_from[position_current]
         nb_step += 1
@@ -143,7 +143,7 @@ def trouver_hauteur_min():
     return liste_hauteur_min
 
 
-def tous_les_chemins_bis():
+def tous_les_chemins_A_star_algorithm_bis():
     which_direction = PriorityQueue()
     came_from = dict()
     cost_so_far = dict()
@@ -178,7 +178,7 @@ def chemin_plus_court_bis():
     nb_step = 0
     position_current = end.nom
     came_from = dict()
-    came_from = tous_les_chemins_bis()
+    came_from = tous_les_chemins_A_star_algorithm_bis()
     while globals()[position_current].hauteur != ord('a'):
         position_current = came_from[position_current]
         nb_step += 1
@@ -186,3 +186,73 @@ def chemin_plus_court_bis():
 
 
 print('The fewest steps starting from an elevation a is', chemin_plus_court_bis()[0], 'and starts at', chemin_plus_court_bis()[1])
+
+
+####################################################################################################################
+# REMARQUES ######################################################################################################
+####################################################################################################################
+
+# Speed test for the different algorithms.
+
+def tous_les_chemins_greedy_best_first_search():
+    which_direction = PriorityQueue()
+    which_direction.put((0, start))
+    came_from = dict()
+    came_from[start.nom] = None
+    cost_so_far = dict()
+    cost_so_far[start] = 0
+    cost_neighborhood_current = 0
+
+    while not which_direction.empty():
+        position_current = which_direction.get()
+        position_current = position_current[1]
+        liste_neighborhood_available = find_neighborhood_available(position_current)
+
+        if position_current.nom == end.nom:
+            break
+
+        for neighborhood_current in liste_neighborhood_available:
+            cost_neighborhood_current += cost_so_far[position_current] + 1
+            if neighborhood_current not in cost_so_far or cost_neighborhood_current < cost_so_far[neighborhood_current]:
+                cost_so_far[neighborhood_current] = cost_neighborhood_current
+                priority = distance(position_current, neighborhood_current)
+                which_direction.put((priority, neighborhood_current))
+                came_from[neighborhood_current.nom] = position_current.nom
+    return came_from
+
+
+def tous_les_chemins_Dijkstra_s_algorithm():
+    which_direction = PriorityQueue()
+    which_direction.put((0, start))
+    came_from = dict()
+    came_from[start.nom] = None
+    cost_so_far = dict()
+    cost_so_far[start] = 0
+    cost_neighborhood_current = 0
+
+    while not which_direction.empty():
+        position_current = which_direction.get()
+        position_current = position_current[1]
+        liste_neighborhood_available = find_neighborhood_available(position_current)
+
+        if position_current.nom == end.nom:
+            break
+
+        for neighborhood_current in liste_neighborhood_available:
+            cost_neighborhood_current += cost_so_far[position_current] + 1
+            if neighborhood_current not in cost_so_far or cost_neighborhood_current < cost_so_far[neighborhood_current]:
+                cost_so_far[neighborhood_current] = cost_neighborhood_current
+                priority = cost_neighborhood_current
+                which_direction.put((priority, neighborhood_current))
+                came_from[neighborhood_current.nom] = position_current.nom
+    return came_from
+
+
+print('For the Greed Best Find Search ie only the distance as priority')
+print(timeit.timeit(lambda: tous_les_chemins_greedy_best_first_search(), number=1000))
+
+print('For the Dijkstra s algorithm ie only the cost as priority')
+print(timeit.timeit(lambda: tous_les_chemins_Dijkstra_s_algorithm(), number=1000))
+
+print('For the A* algorithm ie use both')
+print(timeit.timeit(lambda: tous_les_chemins_A_star_algorithm(), number=1000))
