@@ -18,7 +18,7 @@ class monkeys:
         self.nb_items_inspected = 0
 
 
-def find_nb_monkeys():
+def find_nb_of_monkeys():
     nb_monkeys = 0
     for i in range(0, len(liste), 7):
         nb_monkeys += 1
@@ -50,14 +50,14 @@ def find_diviseur(id_monkey):
     return int(diviseur)
 
 
-# Trouve l'id du singe qui receptionne l'objet sur la divisibilité est vrai.
+# Trouve l'id du singe qui receptionne l'objet si la divisibilité est vrai.
 def find_true_monkey(id_monkey):
     id_in_liste = 4 + 7 * id_monkey
     id_true_monkey = liste[id_in_liste][29:]
     return id_true_monkey
 
 
-# Trouve l'id du singe qui receptionne l'objet sur la divisibilité n'est pas vrai.
+# Trouve l'id du singe qui receptionne l'objet si la divisibilité n'est pas vrai.
 def find_false_monkey(id_monkey):
     id_in_liste = 5 + 7 * id_monkey
     id_false_monkey = liste[id_in_liste][30:]
@@ -65,7 +65,7 @@ def find_false_monkey(id_monkey):
 
 
 def create_monkeys():
-    nb_monkeys = find_nb_monkeys()
+    nb_monkeys = find_nb_of_monkeys()
     for id_monkey in range(nb_monkeys):
         liste_starting_items = find_starting_items(id_monkey)
         operation = find_operation(id_monkey)
@@ -125,7 +125,7 @@ def round_total(nb_round, nb_monkeys):
 
 
 def find_nb_item_inspected(nb_round):
-    nb_monkeys = find_nb_monkeys()
+    nb_monkeys = find_nb_of_monkeys()
     round_total(nb_round, nb_monkeys)
     liste_nb_items_inspected = []
     for id_monkey in range(nb_monkeys):
@@ -198,7 +198,7 @@ def round_total_bis(nb_round, nb_monkeys):
 
 
 def find_nb_item_inspected_bis(nb_round):
-    nb_monkeys = find_nb_monkeys()
+    nb_monkeys = find_nb_of_monkeys()
     reset(nb_monkeys)
     round_total_bis(nb_round, nb_monkeys)
     liste_nb_items_inspected = []
