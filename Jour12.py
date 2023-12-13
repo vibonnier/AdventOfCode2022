@@ -51,37 +51,37 @@ creation_map()
 ####################################################################################################################
 
 
-def comparer_hauteur(position_current, neighborhood):
-    if position_current.hauteur == neighborhood.hauteur - 1 or position_current.hauteur >= neighborhood.hauteur:
+def comparer_hauteur(position_current, neighbor):
+    if position_current.hauteur == neighbor.hauteur - 1 or position_current.hauteur >= neighbor.hauteur:
         return True
     else:
         return False
 
 
-def check_if_we_can_move(position_current, neighborhood):
-    if comparer_hauteur(position_current, neighborhood):
+def check_if_we_can_move(position_current, neighbor_current):
+    if comparer_hauteur(position_current, neighbor_current):
         return True
     else:
         return False
 
 
-def set_neighborhood(position_current, deplacement_x, deplacement_y, liste_neighborhood_available):
+def set_neighborhood(position_current, deplacement_x, deplacement_y, liste_neighbors_available):
     try:
-        neighborhood_current = position(position_current.abscisse + deplacement_x, position_current.ordonnee + deplacement_y)
-        if check_if_we_can_move(position_current, neighborhood_current):
-            liste_neighborhood_available.append(neighborhood_current)
+        neighbor_current = position(position_current.abscisse + deplacement_x, position_current.ordonnee + deplacement_y)
+        if check_if_we_can_move(position_current, neighbor_current):
+            liste_neighbors_available.append(neighbor_current)
     except KeyError:
         pass
     return
 
 
-def find_neighborhood_available(position_current):
-    liste_neighborhood_available = []
-    set_neighborhood(position_current, 1, 0, liste_neighborhood_available)
-    set_neighborhood(position_current, -1, 0, liste_neighborhood_available)
-    set_neighborhood(position_current, 0, 1, liste_neighborhood_available)
-    set_neighborhood(position_current, 0, -1, liste_neighborhood_available)
-    return liste_neighborhood_available
+def find_neighbors_available(position_current):
+    liste_neighbors_available = []
+    set_neighborhood(position_current, 1, 0, liste_neighbors_available)
+    set_neighborhood(position_current, -1, 0, liste_neighbors_available)
+    set_neighborhood(position_current, 0, 1, liste_neighbors_available)
+    set_neighborhood(position_current, 0, -1, liste_neighbors_available)
+    return liste_neighbors_available
 
 
 def distance(position1, position2):
@@ -95,23 +95,23 @@ def tous_les_chemins_A_star_algorithm():
     came_from[start.nom] = None
     cost_so_far = dict()
     cost_so_far[start] = 0
-    cost_neighborhood_current = 0
+    cost_neighbor_current = 0
 
     while not which_direction.empty():
         position_current = which_direction.get()
         position_current = position_current[1]
-        liste_neighborhood_available = find_neighborhood_available(position_current)
+        liste_neighbors_available = find_neighbors_available(position_current)
 
         if position_current.nom == end.nom:
             break
 
-        for neighborhood_current in liste_neighborhood_available:
-            cost_neighborhood_current += cost_so_far[position_current] + 1
-            if neighborhood_current not in cost_so_far or cost_neighborhood_current < cost_so_far[neighborhood_current]:
-                cost_so_far[neighborhood_current] = cost_neighborhood_current
-                priority = cost_neighborhood_current + distance(position_current, neighborhood_current)
-                which_direction.put((priority, neighborhood_current))
-                came_from[neighborhood_current.nom] = position_current.nom
+        for neighbor_current in liste_neighbors_available:
+            cost_neighbor_current += cost_so_far[position_current] + 1
+            if neighbor_current not in cost_so_far or cost_neighbor_current < cost_so_far[neighbor_current]:
+                cost_so_far[neighbor_current] = cost_neighbor_current
+                priority = cost_neighbor_current + distance(position_current, neighbor_current)
+                which_direction.put((priority, neighbor_current))
+                came_from[neighbor_current.nom] = position_current.nom
     return came_from
 
 
@@ -154,22 +154,22 @@ def tous_les_chemins_A_star_algorithm_bis():
         came_from[liste_start_possible[i].nom] = None
         cost_so_far[liste_start_possible[i]] = 0
 
-    cost_neighborhood_current = 0
+    cost_neighbor_current = 0
 
     while not which_direction.empty():
         position_current = which_direction.get()
         position_current = position_current[1]
-        liste_neighborhood_available = find_neighborhood_available(position_current)
+        liste_neighbors_available = find_neighbors_available(position_current)
         if position_current.nom == end.nom:
             break
 
-        for neighborhood_current in liste_neighborhood_available:
-            cost_neighborhood_current += cost_so_far[position_current] + 1
-            if neighborhood_current not in cost_so_far or cost_neighborhood_current < cost_so_far[neighborhood_current]:
-                cost_so_far[neighborhood_current] = cost_neighborhood_current
-                priority = cost_neighborhood_current + distance(position_current, neighborhood_current)
-                which_direction.put((priority, neighborhood_current))
-                came_from[neighborhood_current.nom] = position_current.nom
+        for neighbor_current in liste_neighbors_available:
+            cost_neighbor_current += cost_so_far[position_current] + 1
+            if neighbor_current not in cost_so_far or cost_neighbor_current < cost_so_far[neighbor_current]:
+                cost_so_far[neighbor_current] = cost_neighbor_current
+                priority = cost_neighbor_current + distance(position_current, neighbor_current)
+                which_direction.put((priority, neighbor_current))
+                came_from[neighbor_current.nom] = position_current.nom
 
     return came_from
 
@@ -201,23 +201,23 @@ def tous_les_chemins_greedy_best_first_search():
     came_from[start.nom] = None
     cost_so_far = dict()
     cost_so_far[start] = 0
-    cost_neighborhood_current = 0
+    cost_neighbor_current = 0
 
     while not which_direction.empty():
         position_current = which_direction.get()
         position_current = position_current[1]
-        liste_neighborhood_available = find_neighborhood_available(position_current)
+        liste_neighbors_available = find_neighbors_available(position_current)
 
         if position_current.nom == end.nom:
             break
 
-        for neighborhood_current in liste_neighborhood_available:
-            cost_neighborhood_current += cost_so_far[position_current] + 1
-            if neighborhood_current not in cost_so_far or cost_neighborhood_current < cost_so_far[neighborhood_current]:
-                cost_so_far[neighborhood_current] = cost_neighborhood_current
-                priority = distance(position_current, neighborhood_current)
-                which_direction.put((priority, neighborhood_current))
-                came_from[neighborhood_current.nom] = position_current.nom
+        for neighbor_current in liste_neighbors_available:
+            cost_neighbor_current += cost_so_far[position_current] + 1
+            if neighbor_current not in cost_so_far or cost_neighbor_current < cost_so_far[neighbor_current]:
+                cost_so_far[neighbor_current] = cost_neighbor_current
+                priority = distance(position_current, neighbor_current)
+                which_direction.put((priority, neighbor_current))
+                came_from[neighbor_current.nom] = position_current.nom
     return came_from
 
 
@@ -228,23 +228,23 @@ def tous_les_chemins_Dijkstra_s_algorithm():
     came_from[start.nom] = None
     cost_so_far = dict()
     cost_so_far[start] = 0
-    cost_neighborhood_current = 0
+    cost_neighbor_current = 0
 
     while not which_direction.empty():
         position_current = which_direction.get()
         position_current = position_current[1]
-        liste_neighborhood_available = find_neighborhood_available(position_current)
+        liste_neighbors_available = find_neighbors_available(position_current)
 
         if position_current.nom == end.nom:
             break
 
-        for neighborhood_current in liste_neighborhood_available:
-            cost_neighborhood_current += cost_so_far[position_current] + 1
-            if neighborhood_current not in cost_so_far or cost_neighborhood_current < cost_so_far[neighborhood_current]:
-                cost_so_far[neighborhood_current] = cost_neighborhood_current
-                priority = cost_neighborhood_current
-                which_direction.put((priority, neighborhood_current))
-                came_from[neighborhood_current.nom] = position_current.nom
+        for neighbor_current in liste_neighbors_available:
+            cost_neighbor_current += cost_so_far[position_current] + 1
+            if neighbor_current not in cost_so_far or cost_neighbor_current < cost_so_far[neighbor_current]:
+                cost_so_far[neighbor_current] = cost_neighbor_current
+                priority = cost_neighbor_current
+                which_direction.put((priority, neighbor_current))
+                came_from[neighbor_current.nom] = position_current.nom
     return came_from
 
 
